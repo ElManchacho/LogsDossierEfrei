@@ -59,6 +59,19 @@ if __name__ == '__main__' :
                     join(folder, f)
                     )
                 ]
+    
+    toRemove = []
+    count = 0
+
+    for log in logs :
+        split2 = log.split(".",1)
+        extension = split2[1]
+        if (extension!='csv'):
+            toRemove.append(log)
+        count +=1
+
+    for log in toRemove:
+        logs.remove(log)
 
     for log in logs :
         info=[]
@@ -69,10 +82,8 @@ if __name__ == '__main__' :
         info = split1 + split2
         if str(dateNow.date())==info[2]:
             id += 1
-
-
+    
     headers = ["Date","ActivityDescription","TodoTomorrow","ImportantTasks"]
-
 
     print("\n\nWhat did you do today ?\n")
 
@@ -98,3 +109,5 @@ if __name__ == '__main__' :
             csvHeaders.append(header)
         writer.writerows([csvHeaders])
         writer.writerows(dataList)
+    
+    print('log_'+str(id)+'_'+str(dateNow.date())+'.csv created sucessfully !')
