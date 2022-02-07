@@ -31,28 +31,53 @@ if __name__ == '__main__' :
     for log in toRemove:
         logs.remove(log)
     
+    dateTemp = ""
 
-    lastLogName = logs[len(logs)-1]
+    lastDate ="0-00-00"
 
-    lastlog ={}
+    lastLogName = ""
 
-    with open(folder+lastLogName, newline='') as csvfile:
-        reader = csv.DictReader(csvfile, dialect=unix_dialect)
-        for row in reader:
-            lastlog = row
+    lastLogs = []
 
-    print("Nombre de logs enregistrés")
+    #lastLogName = logs[len(logs)-1]
 
-    print(len(logs))
+    for log in logs:
 
-    print("\nActivité à la dernière date enregistrée")
+        dateTemp = log.split("_",1)
+        dateTemp = dateTemp[1].split("_",1)[1]
+        dateTemp = dateTemp.split(".",1)[0]
 
-    print("Le " + lastlog["Date"] + " : \n" + lastlog["ActivityDescription"] + "\n")
+        if lastDate < dateTemp:
+            lastDate = dateTemp
+            lastLogName = log
+            lastLogs = [log]
+        
+        elif lastDate == dateTemp:
+            lastLogs.append(log)
 
-    print("\nLe dernier 'à faire' en date : ")
+    
 
-    print(lastlog["TodoTomorrow"])
+    for log in lastLogs :
 
-    print("\nWarnings")
+        lastlog = {}
 
-    print(lastlog["ImportantTasks"]+"\n")
+        with open(folder+log, newline='') as csvfile:
+            reader = csv.DictReader(csvfile, dialect=unix_dialect)
+            for row in reader:
+                lastlog = row
+
+        print("\nNombre de logs enregistrés")
+
+        print(len(logs))
+        
+        print("\nLog visionné : " + log)
+
+        print("\nActivité à la dernière date enregistrée - Le " + lastlog["Date"] + " : \n" + lastlog["ActivityDescription"] + "\n")
+
+        print("\nLe dernier 'à faire' en date : ")
+
+        print(lastlog["TodoTomorrow"])
+
+        print("\nWarnings")
+
+        print(lastlog["ImportantTasks"]+"\n")
