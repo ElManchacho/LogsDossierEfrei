@@ -49,8 +49,29 @@ if __name__ == '__main__' :
 
     print("Nouvelle entrée 'log_id_date' EFREI pour mémoire : ")
 
-    dateNow = datetime.datetime.today()
+    typeDate = ""
 
+    dateOk = 0
+    
+    while dateOk == 0:
+        print("Souhaitez-vous que la date soit automatique ?    (Y = Oui, N = Non) \n")
+        typeDate = input()
+        if typeDate == "Y" :
+            print("Date du log automatique (date d\'aujourd\'hui)\n")
+            dateNow = datetime.datetime.today()
+            dateOk = 1
+        elif typeDate == "N" :
+            print("Saisissez la date souhaitée (format : YYYY-MM-DD)")
+            fromDate = datetime.datetime.today()
+            month = 13
+            while month < 0 or month > 12 :
+                print("/!\\ Important : le mois doit être compris entre 01 et 12 /!\\")
+                dateNow = input()
+                dateNow = dateNow.split("-",3)
+                month = int(dateNow[1])
+            dateNow = fromDate.replace(year=int(dateNow[0]),month=int(dateNow[1]), day=int(dateNow[2]))
+            dateOk = 1
+    
     id = 0 # incrémenter pour chaque logs de la même journée
 
     logs = [
