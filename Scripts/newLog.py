@@ -103,8 +103,8 @@ if __name__ == '__main__' :
         info = split1 + split2
         if str(dateNow.date())==info[2]:
             id += 1
-    
-    headers = ["Date","ActivityDescription","TodoTomorrow","ImportantTasks"]
+
+    headers = ['Date','ActivityDescription','TodoTomorrow','ImportantTasks']
 
     print("\n\nWhat did you do today ?\n")
 
@@ -125,10 +125,7 @@ if __name__ == '__main__' :
 
     with open(folder+'log_'+str(id)+'_'+str(dateNow.date())+'.csv', 'w', newline='') as f:
         writer = csv.writer(f,dialect=unix_dialect)
-        csvHeaders = []
-        for header in headers :
-            csvHeaders.append(header)
-        writer.writerows([csvHeaders])
+        writer.writerows([headers])
         writer.writerows(dataList)
     
     print('log_'+str(id)+'_'+str(dateNow.date())+'.csv created sucessfully !')

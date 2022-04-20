@@ -9,3 +9,5 @@ newLog.py => add new csv log file named 'log_id_date',
                                         - ActivityDescription,
                                         - TodoTomorrow,
                                         - ImportantTasks
+
+concatenate.py => concatenate logs following user's preferences
